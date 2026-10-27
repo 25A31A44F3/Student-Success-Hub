@@ -1,0 +1,694 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Success Hub | Dashboard</title>
+
+    <link rel="stylesheet" href="css/style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+</head>
+
+<body>
+<div class="container">
+
+    <!-- ========== SIDEBAR ========== -->
+    <aside class="sidebar">
+        <div class="logo">
+            🎓 <span>Student Success Hub</span>
+        </div>
+
+        <ul>
+            <li class="active">
+                <i class="fa-solid fa-house"></i> Dashboard
+            </li>
+            <li>
+                <i class="fa-solid fa-calendar-check"></i> Attendance
+            </li>
+            <li>
+                <i class="fa-solid fa-book"></i> Study Planner
+            </li>
+            <li>
+                <i class="fa-solid fa-file"></i> Assignments
+            </li>
+            <li>
+                <i class="fa-solid fa-code"></i> Coding Tracker
+            </li>
+            <li>
+                <i class="fa-solid fa-briefcase"></i> Placements
+            </li>
+            <li>
+                <i class="fa-solid fa-chart-line"></i> Analytics
+            </li>
+        </ul>
+    </aside>
+
+    <!-- ========== MAIN CONTENT ========== -->
+    <main class="main">
+
+        <!-- HEADER -->
+        <div class="topbar">
+            <div>
+                <h1>Welcome Back 👋</h1>
+                <p>Let's make today productive.</p>
+            </div>
+            <div class="profile">
+                🔔
+                <span class="profile-avatar" aria-hidden="true">
+                    <i class="fa-solid fa-user-graduate"></i>
+                </span>
+            </div>
+        </div>
+
+        <!-- DASHBOARD SUMMARY -->
+        <div class="cards">
+            <div class="card blue">
+                <h3>Attendance</h3>
+                <h1>91%</h1>
+                <p>Safe Leaves : 4</p>
+            </div>
+
+            <div class="card green">
+                <h3>Study Hours</h3>
+                <h1>6.5 hrs</h1>
+                <p>Today's Goal</p>
+            </div>
+
+            <div class="card orange">
+                <h3>Coding</h3>
+                <h1>24 Days</h1>
+                <p>Current Streak</p>
+            </div>
+
+            <div class="card purple">
+                <h3>XP Points</h3>
+                <h1>2450</h1>
+                <p>Level 15</p>
+            </div>
+        </div>
+
+        <div class="dashboard-content">
+
+            <!-- ========== 1. TODAY'S TASKS ========== -->
+            <section class="widget tasks-widget">
+                <div class="widget-header">
+                    <h2>📋 Today's Tasks</h2>
+                    <span>Daily Planner</span>
+                </div>
+
+                <div class="task-input">
+                    <input type="text" id="taskInput"
+                           placeholder="Add a new task...">
+                    <button id="addTaskBtn">+ Add</button>
+                </div>
+
+                <div class="task-list" id="taskList"></div>
+            </section>
+
+            <!-- ========== 2. ATTENDANCE MANAGER ========== -->
+            <section class="widget attendance-widget">
+                <div class="widget-header">
+                    <h2>📅 Attendance Manager</h2>
+                    <span>Subject-wise Tracking</span>
+                </div>
+
+                <div class="attendance-circle" id="attendanceCircle">
+                    <div class="circle-inner">
+                        <h2 id="overallAttendance">0%</h2>
+                        <p>Overall</p>
+                    </div>
+                </div>
+
+                <div class="attendance-details">
+                    <p>Classes Attended:
+                        <strong id="totalAttended">0</strong>
+                    </p>
+                    <p>Total Classes:
+                        <strong id="totalClasses">0</strong>
+                    </p>
+                    <p>Safe Leaves:
+                        <strong id="safeLeaves">0</strong>
+                    </p>
+                </div>
+
+                <p id="attendanceAlert"></p>
+
+                <div class="attendance-form">
+                    <h3>Add New Subject</h3>
+
+                    <input type="text" id="subjectName"
+                           placeholder="Subject Name">
+
+                    <input type="number" id="subjectAttended"
+                           placeholder="Classes Attended" min="0">
+
+                    <input type="number" id="subjectTotal"
+                           placeholder="Total Classes" min="0">
+
+                    <button id="addSubjectBtn" class="action-btn">
+                        + Add Subject
+                    </button>
+
+                    <p id="subjectFeedback"></p>
+                </div>
+
+                <div class="subject-list" id="subjectList"></div>
+            </section>
+
+            <!-- ========== 3. SMART STUDY PLANNER ========== -->
+            <section class="widget planner-widget">
+                <div class="widget-header">
+                    <h2>📚 Smart Study Planner</h2>
+                    <span>Focus &amp; Progress</span>
+                </div>
+
+                <div class="study-summary">
+                    <div>
+                        <strong id="studyMinutes">0m</strong>
+                        <span>Study Time</span>
+                    </div>
+                    <div>
+                        <strong id="studySessions">0</strong>
+                        <span>Sessions</span>
+                    </div>
+                </div>
+
+                <div class="study-progress">
+                    <div class="progress-info">
+                        <span>Daily Study Goal (120 min)</span>
+                        <strong id="studyGoalPercent">0%</strong>
+                    </div>
+                    <div class="progress-bar">
+                        <div class="progress-fill"
+                             id="studyGoalFill"
+                             style="width:0%"></div>
+                    </div>
+                </div>
+
+                <form id="studyPlanForm" class="study-plan-form">
+                    <h3>Create Study Plan</h3>
+
+                    <input id="studySubject" type="text"
+                           placeholder="Subject (e.g. Java)" required>
+
+                    <input id="studyTopic" type="text"
+                           placeholder="Topic (e.g. Inheritance)" required>
+
+                    <label for="studyExamDate">Exam Date</label>
+                    <input id="studyExamDate" type="date" required>
+
+                    <label for="studyPriority">Priority</label>
+                    <select id="studyPriority">
+                        <option value="High">High</option>
+                        <option value="Medium" selected>Medium</option>
+                        <option value="Low">Low</option>
+                    </select>
+
+                    <label for="studyDuration">Focus Duration</label>
+                    <select id="studyDuration">
+                        <option value="25">25 minutes</option>
+                        <option value="45">45 minutes</option>
+                        <option value="60">60 minutes</option>
+                    </select>
+
+                    <button type="submit" class="action-btn">
+                        + Add Study Plan
+                    </button>
+
+                    <p id="studyFeedback" aria-live="polite"></p>
+                </form>
+
+                <div class="study-plan-list" id="studyPlanList"></div>
+
+                <div class="pomodoro-box">
+                    <h3>⏱️ Focus Timer</h3>
+
+                    <p id="activeStudyTopic">
+                        Select a study plan to begin
+                    </p>
+
+                    <div class="timer-display" id="timerDisplay">
+                        25:00
+                    </div>
+
+                    <div class="timer-actions">
+                        <button id="startTimerBtn" type="button">Start</button>
+                        <button id="pauseTimerBtn" type="button">Pause</button>
+                        <button id="resetTimerBtn" type="button">Reset</button>
+                    </div>
+
+                    <p id="timerFeedback" aria-live="polite"></p>
+                </div>
+
+                <h3 class="study-history-title">Recent Study Sessions</h3>
+                <div id="studyHistory" class="study-history"></div>
+            </section>
+
+            <!-- ========== 4. ASSIGNMENT MANAGER ========== -->
+            <section class="widget assignment-widget">
+                <div class="widget-header">
+                    <h2>📝 Assignment Manager</h2>
+                    <span>Track Deadlines</span>
+                </div>
+
+                <div class="assignment-summary">
+                    <div>
+                        <strong id="assignmentTotal">0</strong>
+                        <span>Total</span>
+                    </div>
+                    <div>
+                        <strong id="assignmentCompleted">0</strong>
+                        <span>Completed</span>
+                    </div>
+                    <div>
+                        <strong id="assignmentPending">0</strong>
+                        <span>Pending</span>
+                    </div>
+                </div>
+
+                <div class="assignment-progress">
+                    <div class="progress-info">
+                        <span>Completion Progress</span>
+                        <strong id="assignmentPercent">0%</strong>
+                    </div>
+                    <div class="progress-bar">
+                        <div class="progress-fill"
+                             id="assignmentProgressFill"
+                             style="width:0%"></div>
+                    </div>
+                </div>
+
+                <form id="assignmentForm" class="assignment-form">
+                    <h3 id="assignmentFormTitle">Add New Assignment</h3>
+
+                    <input type="text" id="assignmentSubject"
+                           placeholder="Subject (e.g. Java)"
+                           maxlength="60" required>
+
+                    <input type="text" id="assignmentTitle"
+                           placeholder="Assignment title"
+                           maxlength="120" required>
+
+                    <label for="assignmentDue">Due Date</label>
+                    <input type="date" id="assignmentDue" required>
+
+                    <label for="assignmentPriority">Priority</label>
+                    <select id="assignmentPriority">
+                        <option value="High">High</option>
+                        <option value="Medium" selected>Medium</option>
+                        <option value="Low">Low</option>
+                    </select>
+
+                    <label for="assignmentStatus">Status</label>
+                    <select id="assignmentStatus">
+                        <option value="Pending">Pending</option>
+                        <option value="In Progress">In Progress</option>
+                        <option value="Completed">Completed</option>
+                    </select>
+
+                    <button type="submit" class="action-btn"
+                            id="saveAssignmentBtn">
+                        + Add Assignment
+                    </button>
+
+                    <button type="button" id="cancelAssignmentEdit"
+                            class="assignment-cancel" hidden>
+                        Cancel Edit
+                    </button>
+
+                    <p id="assignmentFeedback" aria-live="polite"></p>
+                </form>
+
+                <div class="assignment-filter">
+                    <label for="assignmentFilter">Show</label>
+                    <select id="assignmentFilter">
+                        <option value="All">All Assignments</option>
+                        <option value="Pending">Pending</option>
+                        <option value="In Progress">In Progress</option>
+                        <option value="Completed">Completed</option>
+                    </select>
+                </div>
+
+                <div id="assignmentList" class="assignment-list"></div>
+            </section>
+
+            <!-- ========== 5. CODING TRACKER ========== -->
+            <section class="widget coding-widget">
+                <div class="widget-header">
+                    <h2>💻 Coding Progress</h2>
+                </div>
+
+                <div class="coding-platforms">
+                    <div class="platform">
+                        <span>LeetCode</span>
+                        <strong>240 Problems</strong>
+                    </div>
+                    <div class="platform">
+                        <span>HackerRank</span>
+                        <strong>5 Stars</strong>
+                    </div>
+                    <div class="platform">
+                        <span>GitHub</span>
+                        <strong>18 Repositories</strong>
+                    </div>
+                </div>
+
+                <h3>Activity Heatmap</h3>
+                <div class="heatmap" id="heatmap"></div>
+
+                <div class="coding-entry">
+                    <h3>Log Coding Practice</h3>
+
+                    <label for="codingPlatform">Platform</label>
+                    <select id="codingPlatform">
+                        <option value="LeetCode">LeetCode</option>
+                        <option value="HackerRank">HackerRank</option>
+                        <option value="CodeChef">CodeChef</option>
+                        <option value="Other">Other</option>
+                    </select>
+
+                    <label for="problemsSolved">Problems Solved</label>
+                    <input type="number" id="problemsSolved"
+                           min="1" step="1" placeholder="Example: 3">
+
+                    <button id="logCodingBtn" class="action-btn">
+                        + Log Practice
+                    </button>
+
+                    <p id="codingFeedback" aria-live="polite"></p>
+                </div>
+
+                <div class="coding-summary">
+                    <div>
+                        <strong id="totalProblems">0</strong>
+                        <span>Total Problems</span>
+                    </div>
+                    <div>
+                        <strong id="codingStreak">0</strong>
+                        <span>Day Streak</span>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ========== 6. PLACEMENT PREPARATION ========== -->
+            <section class="widget placement-widget">
+                <div class="widget-header">
+                    <h2>🎯 Placement Preparation Hub</h2>
+                    <span>Career Readiness</span>
+                </div>
+
+                <p class="placement-intro">
+                    Prepare for placements with DSA, aptitude,
+                    resume building and interview practice.
+                </p>
+
+                <!-- Readiness Overview -->
+                <div class="placement-overview">
+                    <div class="placement-readiness-circle"
+                         id="placementReadinessCircle">
+                        <div class="placement-readiness-inner">
+                            <strong id="placementReadiness">0%</strong>
+                            <span>Ready</span>
+                        </div>
+                    </div>
+
+                    <div class="placement-overview-details">
+                        <h3>Your Preparation Progress</h3>
+                        <p id="placementReadinessMessage">
+                            Start completing your preparation goals.
+                        </p>
+
+                        <div class="placement-overview-stats">
+                            <span id="placementDSAStat">DSA: 0%</span>
+                            <span id="placementAptitudeStat">Aptitude: 0%</span>
+                            <span id="placementResumeStat">Resume: 0%</span>
+                            <span id="placementInterviewStat">Interview: 0%</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- DSA -->
+                <div class="placement-panel">
+                    <div class="placement-panel-header">
+                        <h3>💻 DSA Preparation</h3>
+                        <strong id="placementDSAPercent">0%</strong>
+                    </div>
+
+                    <p>Complete the essential placement topics.</p>
+
+                    <div class="placement-progress-track">
+                        <div class="placement-progress-fill"
+                             id="placementDSABar"></div>
+                    </div>
+
+                    <div id="placementDSAList"
+                         class="placement-checklist"></div>
+                </div>
+
+                <!-- Aptitude -->
+                <div class="placement-panel">
+                    <div class="placement-panel-header">
+                        <h3>🧠 Aptitude Practice</h3>
+                        <strong id="placementQuizScore">0 / 0</strong>
+                    </div>
+
+                    <p>Practice aptitude questions and track your score.</p>
+
+                    <div id="placementQuiz" class="placement-quiz"></div>
+
+                    <button id="placementNextQuestion"
+                            type="button"
+                            class="placement-primary-btn">
+                        Next Question
+                    </button>
+
+                    <p id="placementQuizFeedback" aria-live="polite"></p>
+                </div>
+
+                <!-- Resume -->
+                <div class="placement-panel">
+                    <div class="placement-panel-header">
+                        <h3>📄 Resume Readiness</h3>
+                        <strong id="placementResumePercent">0%</strong>
+                    </div>
+
+                    <p>Check the important sections of your resume.</p>
+
+                    <div class="placement-progress-track">
+                        <div class="placement-progress-fill"
+                             id="placementResumeBar"></div>
+                    </div>
+
+                    <div id="placementResumeList"
+                         class="placement-checklist"></div>
+                </div>
+
+                <!-- Company Tracker -->
+                <div class="placement-panel">
+                    <h3>🏢 Company Application Tracker</h3>
+                    <p>Add companies and monitor your application status.</p>
+
+                    <form id="placementCompanyForm"
+                          class="placement-company-form">
+
+                        <input id="placementCompanyName"
+                               type="text"
+                               placeholder="Company name"
+                               maxlength="80" required>
+
+                        <input id="placementCompanyRole"
+                               type="text"
+                               placeholder="Job role"
+                               maxlength="100" required>
+
+                        <label for="placementCompanyStatus">
+                            Application Status
+                        </label>
+
+                        <select id="placementCompanyStatus">
+                            <option value="Interested">Interested</option>
+                            <option value="Applied">Applied</option>
+                            <option value="Online Assessment">Online Assessment</option>
+                            <option value="Interview">Interview</option>
+                            <option value="Selected">Selected</option>
+                            <option value="Rejected">Rejected</option>
+                        </select>
+
+                        <button type="submit"
+                                class="placement-primary-btn">
+                            + Add Company
+                        </button>
+                    </form>
+
+                    <div class="placement-company-summary">
+                        <div>
+                            <strong id="placementCompanyTotal">0</strong>
+                            <span>Total</span>
+                        </div>
+                        <div>
+                            <strong id="placementCompanyApplied">0</strong>
+                            <span>Applied+</span>
+                        </div>
+                        <div>
+                            <strong id="placementCompanySelected">0</strong>
+                            <span>Selected</span>
+                        </div>
+                    </div>
+
+                    <div id="placementCompanyList"
+                         class="placement-company-list"></div>
+                </div>
+
+                <!-- Mock Interview -->
+                <div class="placement-panel">
+                    <div class="placement-panel-header">
+                        <h3>🎤 Mock Interview Practice</h3>
+                        <strong id="placementInterviewCount">0 done</strong>
+                    </div>
+
+                    <p>Practice answering common interview questions.</p>
+
+                    <div id="placementInterviewQuestion"
+                         class="placement-interview-question"></div>
+
+                    <textarea id="placementInterviewAnswer"
+                              rows="4"
+                              placeholder="Type your practice answer here..."></textarea>
+
+                    <div class="placement-interview-actions">
+                        <button id="placementSaveInterview"
+                                type="button"
+                                class="placement-primary-btn">
+                            Save Practice
+                        </button>
+
+                        <button id="placementNextInterview"
+                                type="button"
+                                class="placement-secondary-btn">
+                            Next Question
+                        </button>
+                    </div>
+
+                    <p id="placementInterviewFeedback"
+                       aria-live="polite"></p>
+                </div>
+            </section>
+
+            <!-- ========== 7. LEARNING ANALYTICS ========== -->
+            <section class="widget analytics-widget">
+                <div class="widget-header">
+                    <h2>📊 Learning Analytics</h2>
+                    <span>Live Progress</span>
+                </div>
+
+                <p class="analytics-description">
+                    Track your study, coding, attendance and productivity.
+                </p>
+
+                <div class="analytics-stats">
+                    <div class="analytics-stat">
+                        <span>Tasks Completed</span>
+                        <strong id="analyticsTasks">0/0</strong>
+                    </div>
+
+                    <div class="analytics-stat">
+                        <span>Study Time (7 Days)</span>
+                        <strong id="analyticsStudy">0h 0m</strong>
+                    </div>
+
+                    <div class="analytics-stat">
+                        <span>Problems Solved</span>
+                        <strong id="analyticsCoding">0</strong>
+                    </div>
+
+                    <div class="analytics-stat">
+                        <span>Attendance</span>
+                        <strong id="analyticsAttendance">0%</strong>
+                    </div>
+                </div>
+
+                <div class="analytics-chart-box">
+                    <h3>📚 Weekly Study Activity</h3>
+                    <p>Minutes studied in the last 7 days</p>
+                    <div class="analytics-bar-chart"
+                         id="weeklyStudyChart"></div>
+                </div>
+
+                <div class="analytics-chart-box">
+                    <h3>💻 Weekly Coding Activity</h3>
+                    <p>Problems logged in the last 7 days</p>
+                    <div class="analytics-bar-chart"
+                         id="weeklyCodingChart"></div>
+                </div>
+
+                <div class="analytics-chart-box">
+                    <h3>🎯 Productivity Progress</h3>
+
+                    <div class="analytics-progress-item">
+                        <div class="analytics-progress-label">
+                            <span>Task Completion</span>
+                            <strong id="analyticsTaskPercent">0%</strong>
+                        </div>
+                        <div class="analytics-progress-track">
+                            <div class="analytics-progress-fill"
+                                 id="analyticsTaskBar"></div>
+                        </div>
+                    </div>
+
+                    <div class="analytics-progress-item">
+                        <div class="analytics-progress-label">
+                            <span>Assignment Completion</span>
+                            <strong id="analyticsAssignmentPercent">0%</strong>
+                        </div>
+                        <div class="analytics-progress-track">
+                            <div class="analytics-progress-fill"
+                                 id="analyticsAssignmentBar"></div>
+                        </div>
+                    </div>
+
+                    <div class="analytics-progress-item">
+                        <div class="analytics-progress-label">
+                            <span>Attendance</span>
+                            <strong id="analyticsAttendancePercent">0%</strong>
+                        </div>
+                        <div class="analytics-progress-track">
+                            <div class="analytics-progress-fill"
+                                 id="analyticsAttendanceBar"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="analytics-chart-box">
+                    <h3>📝 Assignment Overview</h3>
+
+                    <div class="analytics-assignment-summary">
+                        <div>
+                            <strong id="analyticsAssignmentsTotal">0</strong>
+                            <span>Total</span>
+                        </div>
+                        <div>
+                            <strong id="analyticsAssignmentsDone">0</strong>
+                            <span>Completed</span>
+                        </div>
+                        <div>
+                            <strong id="analyticsAssignmentsOverdue">0</strong>
+                            <span>Overdue</span>
+                        </div>
+                    </div>
+                </div>
+
+                <button id="refreshAnalyticsBtn"
+                        type="button" class="action-btn">
+                    🔄 Refresh Analytics
+                </button>
+            </section>
+
+        </div>
+    </main>
+</div>
+
+<script src="js/script.js"></script>
+</body>
+</html>
